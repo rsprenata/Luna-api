@@ -12,3 +12,12 @@ CREATE TABLE artista (
     altura VARCHAR(10) NOT null,
     experiencia TEXT NOT NULL
 );
+
+CREATE TABLE vaga (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    nome VARCHAR(128),
+    descricao TEXT,
+    valor VARCHAR(10),
+    data VARCHAR(12),
+    qtd_vagas INTEGER
+);
