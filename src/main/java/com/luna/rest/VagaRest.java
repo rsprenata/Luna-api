@@ -26,16 +26,16 @@ public class VagaRest {
     @Autowired
     private ModelMapper mapper;
 
-    /*@PostMapping(value = "/vaga/", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/vaga/", produces = "application/json;charset=UTF-8")
     public VagaDto inserir(@RequestBody VagaDto vaga) {
         // salva a Entidade convertida do DTO
         Vaga a = mapper.map(vaga, Vaga.class);
         repo.save(a);
-        // busca o usuário inserido
-        Optional<Vaga> usu = repo.findById(a.getId());
+        // busca a vaga inserido
+        Optional<Vaga> v = repo.findById(a.getId());
         // retorna o DTO equivalente à entidade
-        return mapper.map(usu, VagaDto.class);
-    }*/
+        return mapper.map(v, VagaDto.class);
+    }
 
     @GetMapping(value = "/vaga/", produces = "application/json;charset=UTF-8")
     public List<VagaDto> getAllVagas(){
@@ -45,7 +45,7 @@ public class VagaRest {
         return lista.stream().map(e -> mapper.map(e,VagaDto.class)).collect(Collectors.toList());
     }
 
-    /*@GetMapping(value = "/vaga/{id}", produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/vaga/{id}", produces = "application/json;charset=UTF-8")
     public VagaDto getById(@PathVariable("id") Integer id){
         Vaga vaga = repo.findById(id).get();
 
@@ -54,5 +54,5 @@ public class VagaRest {
         }else{
             return null;
         }
-    }*/
+    }
 }
