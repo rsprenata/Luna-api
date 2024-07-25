@@ -36,14 +36,14 @@ public class VagaRest {
         // retorna o DTO equivalente à entidade
         return mapper.map(v, VagaDto.class);
     }
-/*
+
     @GetMapping(value = "/vaga/", produces = "application/json;charset=UTF-8")
     public List<VagaDto> getAllVagas(){
 
         List<Vaga> lista = repo.findAll();
 
         return lista.stream().map(e -> mapper.map(e,VagaDto.class)).collect(Collectors.toList());
-    }*/
+    }
 
     @GetMapping(value = "/vaga/{id}", produces = "application/json;charset=UTF-8")
     public VagaDto getById(@PathVariable("id") Integer id){
