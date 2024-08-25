@@ -4,14 +4,11 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.luna.dto.ArtistaDto;
+import com.luna.model.Artista;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.luna.dto.VagaDto;
 import com.luna.model.Vaga;
@@ -54,5 +51,27 @@ public class VagaRest {
         }else{
             return null;
         }
+    }
+
+    @PutMapping(value = "/vaga/{id}", produces = "application/json;charset=UTF-8")
+    public VagaDto updateVaga(@PathVariable Integer id, @RequestBody VagaDto vaga){
+        Optional<Vaga> optionalVaga = repo.findById(id);
+
+        if(optionalVaga.isPresent()){
+            Vaga existingVaga = optionalVaga.get();
+
+            existingVaga.setNome(vaga.getNome());
+            existingVaga.setDescricao(vaga.getDescricao());
+            existingVaga.setData(vaga.getData());
+            existingVaga.setValor(vaga.getValor());
+            existingVaga.setQtdVagas(vaga.getQtdVagas());
+
+            repo.save(existingVaga);
+
+            return mapper.map(existingVaga , VagaDto.class);
+        }else{
+            return null;
+        }
+
     }
 }

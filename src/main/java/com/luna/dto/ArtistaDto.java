@@ -18,4 +18,5 @@ public class ArtistaDto {
     private String peso;
     private String altura;
     private String experiencia;
+    private Integer idade;
 }

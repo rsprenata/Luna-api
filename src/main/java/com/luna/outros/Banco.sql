@@ -13,6 +13,9 @@ CREATE TABLE artista (
     experiencia TEXT NOT NULL
 );
 
+ALTER TABLE public.artista ADD idade int NULL;
+
+
 DROP TABLE vaga;
 CREATE TABLE vaga (
     id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,

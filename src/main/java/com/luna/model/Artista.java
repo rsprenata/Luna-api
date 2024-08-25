@@ -31,4 +31,5 @@ public class Artista implements Serializable{
     private String peso;
     private String altura;
     private String experiencia;
+    private Integer idade;
 }

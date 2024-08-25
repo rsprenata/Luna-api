@@ -6,12 +6,7 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.luna.dto.ArtistaDto;
 import com.luna.model.Artista;
@@ -20,6 +15,7 @@ import com.luna.repository.ArtistaRepository;
 @CrossOrigin
 @RestController
 public class ArtistaRest {
+    //mvn spring-boot:run
     @Autowired
     private ArtistaRepository repo;
 
@@ -54,5 +50,33 @@ public class ArtistaRest {
         }else{
             return null;
         }
+    }
+
+    @PutMapping(value = "/artista/{id}", produces = "application/json;charset=UTF-8")
+    public ArtistaDto updateUser(@PathVariable Integer id,@RequestBody ArtistaDto artista){
+        Optional<Artista> optionalArtista = repo.findById(id);
+
+        if(optionalArtista.isPresent()){
+            Artista existingArtista = optionalArtista.get();
+
+            existingArtista.setNome(artista.getNome());
+            existingArtista.setAltura(artista.getAltura());
+            existingArtista.setEmail(artista.getEmail());
+            existingArtista.setEndereco(artista.getEndereco());
+            existingArtista.setExperiencia(artista.getExperiencia());
+            existingArtista.setBairroEndereco(artista.getBairroEndereco());
+            existingArtista.setCidadeEndereco(artista.getCidadeEndereco());
+            existingArtista.setNumeroEndereco(artista.getNumeroEndereco());
+            existingArtista.setPeso(artista.getPeso());
+            existingArtista.setSenha(artista.getSenha());
+            existingArtista.setIdade(artista.getIdade());
+
+            repo.save(existingArtista);
+
+            return mapper.map(existingArtista , ArtistaDto.class);
+        }else{
+            return null;
+        }
+
     }
 }
