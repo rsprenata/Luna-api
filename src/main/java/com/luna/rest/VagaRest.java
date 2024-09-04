@@ -5,7 +5,9 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.luna.dto.ArtistaDto;
+import com.luna.dto.CandidaturaDto;
 import com.luna.model.Artista;
+import com.luna.model.Candidatura;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

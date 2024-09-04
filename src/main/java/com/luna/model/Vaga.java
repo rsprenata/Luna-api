@@ -2,12 +2,7 @@ package com.luna.model;
 
 import java.io.Serializable;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -25,4 +20,7 @@ public class Vaga implements Serializable{
     private String valor;
     private String data;
     private Integer qtdVagas;
+    @ManyToOne
+    @JoinColumn(name="nivel")
+    private Nivel nivel;
 }

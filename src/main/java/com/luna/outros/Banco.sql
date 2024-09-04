@@ -15,6 +15,30 @@ CREATE TABLE artista (
 
 ALTER TABLE public.artista ADD idade int NULL;
 
+ALTER TABLE public.candidatura DROP CONSTRAINT candidatura_pk;
+ALTER TABLE public.candidatura ADD id int NOT NULL;
+ALTER TABLE public.candidatura ADD CONSTRAINT candidatura_pk PRIMARY KEY (id);
+
+ALTER TABLE public.candidatura DROP CONSTRAINT candidatura_pk;
+ALTER TABLE public.candidatura DROP COLUMN id;
+ALTER TABLE public.candidatura ADD id int NOT NULL GENERATED ALWAYS AS IDENTITY;
+ALTER TABLE public.candidatura ADD CONSTRAINT candidatura_pk PRIMARY KEY (id);
+
+ALTER TABLE public.vaga ADD nivel int NULL;
+ALTER TABLE public.candidatura ADD status int NULL;
+
+CREATE TABLE public.status (
+                               id int NOT NULL GENERATED ALWAYS AS IDENTITY,
+                               descricao varchar NULL,
+                               CONSTRAINT status_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE public.nivel (
+                              id int NOT NULL GENERATED ALWAYS AS IDENTITY,
+                              descricao varchar NULL,
+                              CONSTRAINT nivel_pk PRIMARY KEY (id)
+);
+
 
 DROP TABLE vaga;
 CREATE TABLE vaga (
