@@ -23,4 +23,7 @@ public class Vaga implements Serializable{
     @ManyToOne
     @JoinColumn(name="nivel")
     private Nivel nivel;
+    @ManyToOne
+    @JoinColumn(name="empresa_id")
+    private Empresa empresa;
 }

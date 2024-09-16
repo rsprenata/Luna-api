@@ -14,22 +14,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name="artista")
-public class Artista implements Serializable{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
-    private Integer id;
-    private String email;
-    private String senha;
-    private String endereco;
-    private String bairroEndereco;
-    private String numeroEndereco;
-    private String cidadeEndereco;
-    private String telefone;
-    private String nome;
+public class Artista extends Usuario implements Serializable{
     private String peso;
     private String altura;
     private String experiencia;
     private Integer idade;
+
 }

@@ -3,8 +3,6 @@ package com.luna.rest;
 import com.luna.dto.CandidaturaDto;
 import com.luna.model.Candidatura;
 import com.luna.repository.CandidaturaRepository;
-import com.luna.repository.NivelRepository;
-import com.luna.repository.StatusRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +32,7 @@ public class CandidaturaRest {
         return mapper.map(cd, CandidaturaDto.class);
     }
 
-    @GetMapping(value = "/candidatura/{id}", produces = "application/json;charset=UTF-8")
+    @GetMapping(value = "/candidatura/artista/{id}", produces = "application/json;charset=UTF-8")
     public List<CandidaturaDto> getByIdArtista(@PathVariable("id") Integer id){
 
         List<Candidatura> lista = repo.findByArtista_id(id);
@@ -42,4 +40,14 @@ public class CandidaturaRest {
         List<CandidaturaDto> candidaturas = lista.stream().map(e -> mapper.map(e, CandidaturaDto.class)).collect(Collectors.toList());
         return candidaturas;
     }
+
+    @GetMapping(value = "/candidatura/empresa/{id}", produces = "application/json;charset=UTF-8")
+    public List<CandidaturaDto> getByIdEmpresa(@PathVariable("id") Integer id){
+
+        List<Candidatura> lista = repo.findByVaga_Empresa_Id(id);
+
+        List<CandidaturaDto> candidaturas = lista.stream().map(e -> mapper.map(e, CandidaturaDto.class)).collect(Collectors.toList());
+        return candidaturas;
+    }
+
 }

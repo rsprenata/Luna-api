@@ -1,16 +1,17 @@
 CREATE TABLE artista (
-    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-    email VARCHAR(100) NOT NULL,
-    nome VARCHAR(128) NOT null,
-    senha VARCHAR(50) NOT NULL,
-    endereco VARCHAR(100) NOT null,
-    bairro_endereco VARCHAR(50) NOT NULL,
-    numero_endereco VARCHAR(50) NOT null,
-    cidade_endereco VARCHAR(50) NOT NULL,
-    telefone VARCHAR(20) NOT null,
-    peso VARCHAR(10) NOT NULL,
-    altura VARCHAR(10) NOT null,
-    experiencia TEXT NOT NULL
+                         id_usuario INTEGER PRIMARY KEY,
+                         peso VARCHAR(10) NOT NULL,
+                         altura VARCHAR(10) NOT null,
+                         experiencia TEXT NOT null,
+                         idade INTEGER,
+                         FOREIGN KEY (id_usuario) REFERENCES usuario(id)
+);
+
+CREATE TABLE empresa (
+                         id_usuario INTEGER PRIMARY KEY,
+                         cnpj VARCHAR(15) NOT NULL,
+                         descricao VARCHAR(200),
+                         FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
 
 ALTER TABLE public.artista ADD idade int NULL;
@@ -38,6 +39,40 @@ CREATE TABLE public.nivel (
                               descricao varchar NULL,
                               CONSTRAINT nivel_pk PRIMARY KEY (id)
 );
+
+CREATE TABLE public.empresa (
+                                id int NOT NULL GENERATED ALWAYS AS IDENTITY,
+                                cnpj varchar NOT NULL,
+                                descricao varchar NULL
+);
+
+ALTER TABLE public.vaga ADD id_empresa varchar NULL;
+
+ALTER TABLE public.artista DROP COLUMN endereco;
+ALTER TABLE public.artista DROP COLUMN bairro_endereco;
+ALTER TABLE public.artista DROP COLUMN numero_endereco;
+ALTER TABLE public.artista DROP COLUMN nome;
+ALTER TABLE public.artista DROP COLUMN email;
+ALTER TABLE public.artista DROP COLUMN senha;
+ALTER TABLE public.artista DROP COLUMN cidade_endereco;
+ALTER TABLE public.artista DROP COLUMN telefone;
+
+CREATE TABLE public.usuario (
+                                id int NOT NULL GENERATED ALWAYS AS IDENTITY,
+                                senha varchar(50) NULL,
+                                email varchar(100) NULL,
+                                nome varchar(128) NULL,
+                                endereco varchar(200) NULL,
+                                bairro_endereco varchar(100) NULL,
+                                numero_endereco varchar(20) NULL,
+                                telefone varchar NULL,
+                                cidade_endereco varchar(50) NULL
+);
+
+ALTER TABLE public.usuario ADD CONSTRAINT usuario_pk PRIMARY KEY (id);
+ALTER TABLE public.artista RENAME COLUMN id TO id_usuario;
+
+ALTER TABLE public.artista DROP CONSTRAINT artista_pkey;
 
 
 DROP TABLE vaga;
