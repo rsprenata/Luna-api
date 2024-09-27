@@ -12,6 +12,7 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
+@Table(name = "empresa")
 public class Empresa extends Usuario implements Serializable {
 
     private String cnpj;
