@@ -16,6 +16,7 @@ import lombok.Setter;
 @Entity
 @Table(name="artista")
 public class Artista extends Usuario implements Serializable{
+
     private String peso;
     private String altura;
     private String experiencia;

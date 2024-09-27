@@ -13,6 +13,8 @@ CREATE TABLE empresa (
                          descricao VARCHAR(200),
                          FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
+ALTER TABLE public.artista RENAME COLUMN id_usuario TO id;
+
 
 ALTER TABLE public.artista ADD idade int NULL;
 
