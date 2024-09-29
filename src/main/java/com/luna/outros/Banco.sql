@@ -14,6 +14,8 @@ CREATE TABLE empresa (
                          FOREIGN KEY (id_usuario) REFERENCES usuario(id)
 );
 ALTER TABLE public.artista RENAME COLUMN id_usuario TO id;
+ALTER TABLE public.usuario ADD nivel int NOT NULL;
+ALTER TABLE public.empresa RENAME COLUMN id_usuario TO id;
 
 
 ALTER TABLE public.artista ADD idade int NULL;

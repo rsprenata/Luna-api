@@ -24,8 +24,10 @@ public class ArtistaRest {
 
     @PostMapping(value = "/artista/", produces = "application/json;charset=UTF-8")
     public ArtistaDto inserir(@RequestBody ArtistaDto artista) {
+        final int NIVEL_ARTISTA = 1;
         // salva a Entidade convertida do DTO
         Artista a = mapper.map(artista, Artista.class);
+        a.setNivel(NIVEL_ARTISTA);
         repo.save(a);
         // busca o usuário inserido
         Optional<Artista> usu = repo.findById(a.getId());
@@ -43,8 +45,8 @@ public class ArtistaRest {
 
     @GetMapping(value = "/artista/{id}", produces = "application/json;charset=UTF-8")
     public ArtistaDto getById(@PathVariable("id") Integer id){
+        System.out.println(id);
         Artista artista = repo.findById(id).get();
-
         if (artista != null){
             return mapper.map(artista, ArtistaDto.class);
         }else{

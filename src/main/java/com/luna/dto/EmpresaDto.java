@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ArtistaDto {
+public class EmpresaDto {
     private Integer id;
     private String email;
     private String senha;
@@ -14,10 +14,7 @@ public class ArtistaDto {
     private String numeroEndereco;
     private String cidadeEndereco;
     private String telefone;
+    private String descricao;
+    private String cnpj;
     private String nome;
-    private String peso;
-    private String altura;
-    private String experiencia;
-    private Integer idade;
-    private Integer nivel;
 }

@@ -24,4 +24,5 @@ public class Usuario implements Serializable {
     private String cidadeEndereco;
     private String telefone;
     private String nome;
+    private Integer nivel;
 }
