@@ -5,16 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EmpresaDto {
-    private Integer id;
-    private String email;
-    private String senha;
-    private String endereco;
-    private String bairroEndereco;
-    private String numeroEndereco;
-    private String cidadeEndereco;
-    private String telefone;
-    private String descricao;
+
+public class EmpresaDto extends UsuarioDto {
     private String cnpj;
-    private String nome;
+    private String descricao;
 }
