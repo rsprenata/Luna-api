@@ -9,4 +9,5 @@ import lombok.Setter;
 public class EmpresaDto extends UsuarioDto {
     private String cnpj;
     private String descricao;
+    private Integer nivel;
 }
