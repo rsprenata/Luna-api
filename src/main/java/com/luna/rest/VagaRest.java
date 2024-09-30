@@ -4,16 +4,20 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.luna.dto.ArtistaDto;
-import com.luna.dto.CandidaturaDto;
-import com.luna.model.Artista;
-import com.luna.model.Candidatura;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.luna.dto.VagaDto;
+import com.luna.model.Empresa;
 import com.luna.model.Vaga;
+import com.luna.repository.EmpresaRepository;
 import com.luna.repository.VagaRepository;
 
 @CrossOrigin
@@ -23,12 +27,19 @@ public class VagaRest {
     private VagaRepository repo;
 
     @Autowired
+    private EmpresaRepository empresaRepository;
+
+    @Autowired
     private ModelMapper mapper;
 
     @PostMapping(value = "/vaga/", produces = "application/json;charset=UTF-8")
     public VagaDto inserir(@RequestBody VagaDto vaga) {
         // salva a Entidade convertida do DTO
         Vaga a = mapper.map(vaga, Vaga.class);
+
+        Empresa e = empresaRepository.findById(vaga.getEmpresa().getId()).get();
+        a.setEmpresa(e);
+
         repo.save(a);
         // busca a vaga inserido
         Optional<Vaga> v = repo.findById(a.getId());
@@ -40,6 +51,14 @@ public class VagaRest {
     public List<VagaDto> getAllVagas(){
 
         List<Vaga> lista = repo.findAll();
+
+        return lista.stream().map(e -> mapper.map(e,VagaDto.class)).collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/vaga/empresa/{id}", produces = "application/json;charset=UTF-8")
+    public List<VagaDto> getVagasByEmpresa(@PathVariable("id") Integer id){
+
+        List<Vaga> lista = repo.findByEmpresa_id(id);
 
         return lista.stream().map(e -> mapper.map(e,VagaDto.class)).collect(Collectors.toList());
     }
