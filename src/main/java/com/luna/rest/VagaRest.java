@@ -54,39 +54,40 @@ public class VagaRest {
     }
 
     @GetMapping(value = "/vaga/", produces = "application/json;charset=UTF-8")
-    public List<VagaDto> getAllVagas(){List<Vaga> lista = repo.findAll(Sort.by(
-        Sort.Order.desc("data"),  
-        Sort.Order.asc("nome"),    
-        Sort.Order.desc("valor")     
-    ));
+    public List<VagaDto> getAllVagas() {
+        List<Vaga> lista = repo.findAll(Sort.by(
+                Sort.Order.desc("data"),
+                Sort.Order.asc("nome"),
+                Sort.Order.desc("valor")));
 
-        return lista.stream().map(e -> mapper.map(e,VagaDto.class)).collect(Collectors.toList());
+        return lista.stream().map(e -> mapper.map(e, VagaDto.class)).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/vaga/empresa/{id}", produces = "application/json;charset=UTF-8")
-    public List<VagaDto> getVagasByEmpresa(@PathVariable("id") Integer id){
+    public List<VagaDto> getVagasByEmpresa(@PathVariable("id") Integer id) {
+        List<Vaga> lista = repo.findByEmpresa_id(id, Sort.by(
+                Sort.Order.desc("data"),
+                Sort.Order.asc("nome")));
 
-        List<Vaga> lista = repo.findByEmpresa_id(id);
-
-        return lista.stream().map(e -> mapper.map(e,VagaDto.class)).collect(Collectors.toList());
+        return lista.stream().map(e -> mapper.map(e, VagaDto.class)).collect(Collectors.toList());
     }
 
     @GetMapping(value = "/vaga/{id}", produces = "application/json;charset=UTF-8")
-    public VagaDto getById(@PathVariable("id") Integer id){
+    public VagaDto getById(@PathVariable("id") Integer id) {
         Vaga vaga = repo.findById(id).get();
 
-        if (vaga != null){
+        if (vaga != null) {
             return mapper.map(vaga, VagaDto.class);
-        }else{
+        } else {
             return null;
         }
     }
 
     @PutMapping(value = "/vaga/{id}", produces = "application/json;charset=UTF-8")
-    public VagaDto updateVaga(@PathVariable Integer id, @RequestBody VagaDto vaga){
+    public VagaDto updateVaga(@PathVariable Integer id, @RequestBody VagaDto vaga) {
         Optional<Vaga> optionalVaga = repo.findById(id);
 
-        if(optionalVaga.isPresent()){
+        if (optionalVaga.isPresent()) {
             Vaga existingVaga = optionalVaga.get();
 
             existingVaga.setNome(vaga.getNome());
@@ -97,15 +98,16 @@ public class VagaRest {
 
             repo.save(existingVaga);
 
-            return mapper.map(existingVaga , VagaDto.class);
-        }else{
+            return mapper.map(existingVaga, VagaDto.class);
+        } else {
             return null;
         }
 
     }
 
     @GetMapping(value = "/vaga/verificarCandidatura/{idVaga}/{idUsuario}", produces = "application/json;charset=UTF-8")
-    public ResponseEntity<Boolean> verificarCandidatura(@PathVariable("idVaga") Integer idVaga, @PathVariable("idUsuario") Integer idUsuario){
+    public ResponseEntity<Boolean> verificarCandidatura(@PathVariable("idVaga") Integer idVaga,
+            @PathVariable("idUsuario") Integer idUsuario) {
 
         boolean exists = candidaturaRepository.existsByVagaAndArtista(idVaga, idUsuario);
 
