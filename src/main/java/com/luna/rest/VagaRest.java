@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.luna.dto.VagaDto;
 import com.luna.model.Empresa;
 import com.luna.model.Vaga;
+import com.luna.repository.CandidaturaRepository;
 import com.luna.repository.EmpresaRepository;
 import com.luna.repository.VagaRepository;
 
@@ -31,6 +34,9 @@ public class VagaRest {
 
     @Autowired
     private ModelMapper mapper;
+
+    @Autowired
+    private CandidaturaRepository candidaturaRepository;
 
     @PostMapping(value = "/vaga/", produces = "application/json;charset=UTF-8")
     public VagaDto inserir(@RequestBody VagaDto vaga) {
@@ -48,9 +54,11 @@ public class VagaRest {
     }
 
     @GetMapping(value = "/vaga/", produces = "application/json;charset=UTF-8")
-    public List<VagaDto> getAllVagas(){
-
-        List<Vaga> lista = repo.findAll();
+    public List<VagaDto> getAllVagas(){List<Vaga> lista = repo.findAll(Sort.by(
+        Sort.Order.desc("data"),  
+        Sort.Order.asc("nome"),    
+        Sort.Order.desc("valor")     
+    ));
 
         return lista.stream().map(e -> mapper.map(e,VagaDto.class)).collect(Collectors.toList());
     }
@@ -94,5 +102,13 @@ public class VagaRest {
             return null;
         }
 
+    }
+
+    @GetMapping(value = "/vaga/verificarCandidatura/{idVaga}/{idUsuario}", produces = "application/json;charset=UTF-8")
+    public ResponseEntity<Boolean> verificarCandidatura(@PathVariable("idVaga") Integer idVaga, @PathVariable("idUsuario") Integer idUsuario){
+
+        boolean exists = candidaturaRepository.existsByVagaAndArtista(idVaga, idUsuario);
+
+        return ResponseEntity.ok(exists);
     }
 }
