@@ -100,3 +100,41 @@ INSERT INTO vaga (nome, descricao, valor, data, qtd_vagas) VALUES
 ('Animador 2D', 'Criação de animações 2D para vídeos e jogos.', 'R$ 3200', '2024-07-31', 2),
 ('Curador de Arte', 'Organização e curadoria de exposições de arte.', 'R$ 4500', '2024-09-05', 1),
 ('Produtor Musical', 'Produção e mixagem de trilhas sonoras.', 'R$ 5500', '2024-08-20', 1);
+
+
+CREATE TABLE public.candidatura (
+                                    artista_id int4 NOT NULL,
+                                    vaga_id int4 NOT NULL,
+                                    id int4 NOT NULL GENERATED ALWAYS AS IDENTITY( INCREMENT BY 1 MINVALUE 1 MAXVALUE 2147483647 START 1 CACHE 1 NO CYCLE),
+                                    status int4 NULL,
+                                    CONSTRAINT candidatura_pk PRIMARY KEY (id)
+);
+
+CREATE TABLE public.especialidade (
+                                      id int NOT NULL GENERATED ALWAYS AS IDENTITY,
+                                      descricao varchar NULL
+);
+CREATE TABLE public.nivel_perfil (
+                                     id int NOT NULL GENERATED ALWAYS AS IDENTITY,
+                                     descricao varchar NULL
+);
+
+ALTER TABLE public.vaga RENAME COLUMN nivel TO especialidade;
+
+
+-- Auto-generated SQL script #202410301650
+INSERT INTO public.nivel_perfil (descricao)
+VALUES ('Artista');
+INSERT INTO public.nivel_perfil (descricao)
+VALUES ('Empresa');
+
+-- Auto-generated SQL script #202410301651
+INSERT INTO public.especialidade (descricao)
+VALUES ('Ator/Atriz');
+INSERT INTO public.especialidade (descricao)
+VALUES ('Modelo');
+INSERT INTO public.especialidade (descricao)
+VALUES ('Artista Plástico');
+
+ALTER TABLE public.artista ADD especialidade int NULL;
+

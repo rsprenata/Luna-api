@@ -1,6 +1,5 @@
 package com.luna.dto;
 
-import com.luna.model.Nivel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

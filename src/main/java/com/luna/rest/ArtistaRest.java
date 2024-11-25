@@ -47,6 +47,7 @@ public class ArtistaRest {
     public ArtistaDto getById(@PathVariable("id") Integer id){
         System.out.println(id);
         Artista artista = repo.findById(id).get();
+        System.out.println(artista.getEspecialidade().getDescricao());
         if (artista != null){
             return mapper.map(artista, ArtistaDto.class);
         }else{
@@ -72,6 +73,7 @@ public class ArtistaRest {
             existingArtista.setPeso(artista.getPeso());
             existingArtista.setSenha(artista.getSenha());
             existingArtista.setIdade(artista.getIdade());
+            existingArtista.setEspecialidade(artista.getEspecialidade());
 
             repo.save(existingArtista);
 

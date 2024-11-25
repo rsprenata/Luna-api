@@ -11,10 +11,10 @@ import java.io.Serializable;
 @Getter
 @Setter
 @Entity
-@Table(name="nivel")
+@Table(name="especialidade")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Nivel implements Serializable{
+public class Especialidade implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")

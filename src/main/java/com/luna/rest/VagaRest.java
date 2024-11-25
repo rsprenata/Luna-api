@@ -75,7 +75,8 @@ public class VagaRest {
     @GetMapping(value = "/vaga/{id}", produces = "application/json;charset=UTF-8")
     public VagaDto getById(@PathVariable("id") Integer id) {
         Vaga vaga = repo.findById(id).get();
-
+        System.out.println(vaga.getId());
+        System.out.println(vaga.getEspecialidade().getId());
         if (vaga != null) {
             return mapper.map(vaga, VagaDto.class);
         } else {
@@ -95,6 +96,7 @@ public class VagaRest {
             existingVaga.setData(vaga.getData());
             existingVaga.setValor(vaga.getValor());
             existingVaga.setQtdVagas(vaga.getQtdVagas());
+            existingVaga.setEspecialidade(vaga.getEspecialidade());
 
             repo.save(existingVaga);
 
